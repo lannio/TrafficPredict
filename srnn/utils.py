@@ -143,6 +143,7 @@ class DataLoader:
                 (data[:, 4] - min(data[:, 4])) / (max(data[:, 4]) - min(data[:, 4]))
             ) * 2 - 1
             """
+            # xy缩放到-1 1
             data[:, 3] = (
                 (data[:, 3] - min_position_x) / (max_position_x - min_position_x)
             ) * 2 - 1
@@ -391,3 +392,8 @@ class DataLoader:
         else:
             self.valid_dataset_pointer = 0
             self.valid_frame_pointer = 0
+
+
+
+if __name__ == "__main__":
+    

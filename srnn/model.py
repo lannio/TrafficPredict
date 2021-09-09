@@ -25,10 +25,10 @@ class NodeRNN(nn.Module):
 
         # Store required sizes
         self.rnn_size = args.node_rnn_size  # 128
-        self.output_size = args.node_output_size  # 5
-        self.embedding_size = args.node_embedding_size  # 64
-        self.input_size = args.node_input_size  # 3
-        self.edge_rnn_size = args.edge_rnn_size  # 128
+        self.output_size = args.node_output_size  # 5 Dimension of the node output
+        self.embedding_size = args.node_embedding_size  # 64 Embedding size of node features
+        self.input_size = args.node_input_size  # 3 Dimension of the node features
+        self.edge_rnn_size = args.edge_rnn_size  # 128 Size of Human Human Edge RNN hidden state
 
         # Linear layer to embed input
         self.encoder_linear = nn.Linear(self.input_size, self.embedding_size)

@@ -18,6 +18,7 @@ class ST_GRAPH:
         self.edges = [{} for i in range(batch_size)]
 
     def reset(self):
+        # [{}, {},···] 
         self.nodes = [{} for i in range(self.batch_size)]
         self.edges = [{} for i in range(self.batch_size)]
 
@@ -26,14 +27,15 @@ class ST_GRAPH:
         Main function that constructs the ST graph from the batch data
         params:
         source_batch : List of lists of numpy arrays. Each numpy array corresponds to a frame in the sequence.
+        source_batch : 50batch, video, 10frame
         categories:  car --> 3,   2 --> bicycle ,  1 ---> pedestrian
         """
-        for sequence in range(self.batch_size):
+        for sequence in range(self.batch_size): # 50
             # source_seq is a list of numpy arrays
             # where each numpy array corresponds to a single frame
-            source_seq = source_batch[sequence]
+            source_seq = source_batch[sequence] # video, 10frame
             #  list of frames, every frames may have different number person
-            for framenum in range(self.seq_length):
+            for framenum in range(self.seq_length): # 1 frame
                 # Each frame is a numpy array
                 # each row in the array is of the form
                 # pedID, x, y, type
@@ -62,7 +64,7 @@ class ST_GRAPH:
                         # and the node at previous time-step
                         edge_id = (pedID, pedID)
                         pos_edge = (
-                            self.nodes[sequence][pedID].getPosition(framenum - 1),
+                            self.nodes[sequence][pedID].getPosition(framenum - 1), # 前一帧
                             pos,
                         )
                         if edge_id not in self.edges[sequence]:
@@ -317,3 +319,9 @@ class ST_EDGE:
             "at time-steps:",
             self.edge_pos_list.keys(),
         )
+
+
+
+if __name__ == "__main__":
+    stgraph = ST_GRAPH(50,10)
+    stgraph.getSequence()
